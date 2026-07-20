@@ -1,0 +1,240 @@
+
+:root {
+    --bg-header: #f3efe9; 
+    --text-dark: #1a1a1a;
+    --text-accent: #782c23; 
+    --bg-footer: #2c2c2c; 
+    --text-light: #f9f9f9;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Lato', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--text-dark);
+    background-color: #ffffff;
+    line-height: 1.6;
+}
+
+
+header {
+    background-color: var(--bg-header);
+    padding: 25px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.logo-header {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    color: var(--text-dark);
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #555;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--text-accent);
+}
+
+
+main {
+    display: flex;
+    
+    height: calc(100vh - 80px); 
+    min-height: 600px;
+}
+
+
+.hero-image {
+    flex: 1.4; 
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 40%), 
+                url('../img/foto-autor.jpg') 20% center/cover no-repeat;
+                
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 60px;
+    color: var(--text-light);
+}
+
+.hero-image h2 {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    font-weight: 400;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-image p {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #ddd;
+    max-width: 400px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+
+.hero-text {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    padding: 5% 8%; 
+    background-color: #ffffff;
+}
+
+.hero-text h1 {
+    font-family: var(--font-serif);
+    font-size: 4.5rem;
+    line-height: 1.1;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+
+.hero-text h1 .accent {
+    color: var(--text-accent);
+    display: block;
+}
+
+.hero-text p {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 450px;
+    line-height: 1.8;
+}
+
+
+footer {
+    background-color: var(--bg-footer);
+    color: #ccc;
+    padding: 60px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    font-size: 0.9rem;
+}
+
+.footer-col h4 {
+    font-family: var(--font-serif);
+    color: var(--text-light);
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-col ul li a:hover {
+    color: var(--text-light);
+}
+
+.email-link {
+    margin-top: 10px;
+}
+
+.email-link a {
+    color: #fff;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.email-link a:hover {
+    color: var(--text-accent);
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-icons a {
+    color: #ccc;
+    font-size: 1.5rem;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.social-icons a:hover {
+    color: var(--text-light);
+    transform: translateY(-3px); 
+}
+
+.footer-bottom {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 20px;
+    font-size: 0.8rem;
+}
+
+
+@media (max-width: 900px) {
+    main {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .hero-image {
+        min-height: 50vh;
+    }
+    
+    .hero-text {
+        padding: 60px 30px;
+        text-align: center;
+    }
+    
+    .hero-text p {
+        margin: 0 auto;
+    }
+    
+    header {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+    
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
