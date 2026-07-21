@@ -207,6 +207,100 @@ footer {
     font-size: 0.8rem;
 }
 
+.contact-page {
+    background-color: #fafafa; 
+    padding: 80px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 80px); 
+    height: auto;
+}
+
+.contact-container {
+    background-color: #ffffff;
+    padding: 50px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+    max-width: 600px;
+    width: 100%;
+    border-top: 4px solid var(--text-accent); 
+}
+
+.contact-container h1 {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.contact-container p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 40px;
+    font-size: 1.05rem;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #444;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    background-color: #fdfdfd;
+    transition: all 0.3s ease;
+}
+
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--text-accent);
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(120, 44, 35, 0.1);
+}
+
+.btn-submit {
+    background-color: var(--text-dark);
+    color: #fff;
+    border: none;
+    padding: 16px;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: var(--text-accent);
+}
 
 @media (max-width: 900px) {
     main {
