@@ -1,8 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 require_once __DIR__ . '/config/db.php';
 
 require_once __DIR__ . '/includes/funcoes.php';
@@ -12,7 +9,13 @@ $conexao = obter_conexao();
 
 $resultado = $conexao->query("SELECT id, titulo, conteudo FROM textos_blog ORDER BY id DESC");
 
-$textos = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
+$textos = [];
+if ($resultado) {
+    while ($row = $resultado->fetch_assoc()) {
+        $textos[] = $row;
+    }
+    $resultado->free();
+}
 
 $conexao->close();
 
