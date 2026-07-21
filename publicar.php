@@ -1,4 +1,10 @@
 <?php
+
+session_start();
+if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
+    die("Acesso negado. Você precisa estar logado para publicar.");
+}
+
 $host = "localhost"; 
 $usuario = "u906671717_izv6m";
 $senha = ".3l.e>09ZCvf"; 
