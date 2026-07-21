@@ -21,17 +21,27 @@ if ($id <= 0) {
 $conexao = obter_conexao();
 
 $stmt = $conexao->prepare("SELECT id, titulo, conteudo, imagem FROM textos_blog WHERE id = ?");
-
 $stmt->bind_param("i", $id);
-
 $stmt->execute();
 
-$resultado = $stmt->get_result();
-
-$texto = $resultado->fetch_assoc();
+$texto = null;
+/* Compatibilidade: evitar uso de get_result() que requer mysqlnd em alguns hosts */
+if (method_exists($stmt, 'get_result')) {
+    $resultado = $stmt->get_result();
+    $texto = $resultado ? $resultado->fetch_assoc() : null;
+} else {
+    $stmt->bind_result($col_id, $col_titulo, $col_conteudo, $col_imagem);
+    if ($stmt->fetch()) {
+        $texto = [
+            'id' => $col_id,
+            'titulo' => $col_titulo,
+            'conteudo' => $col_conteudo,
+            'imagem' => $col_imagem,
+        ];
+    }
+}
 
 $stmt->close();
-
 $conexao->close();
 
 
