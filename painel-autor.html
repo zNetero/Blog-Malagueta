@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Escrita - Malagueta do Deserto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body style="background-color: #f3efe9;"> <!-- Fundo bege suave para não cansar a vista -->
+
+    <header style="justify-content: center;">
+        <div class="logo-header" style="font-size: 1.5rem;">ÁREA DO ESCRITOR - MALAGUETA DO DESERTO</div>
+    </header>
+
+    <main class="painel-page">
+        <div class="painel-container">
+            <h1>Escrever Novo Texto</h1>
+            <p>Preencha o título e escreva sua história abaixo. Quando terminar, clique no botão verde.</p>
+            
+            <form action="publicar.php" method="POST" class="form-escrita">
+                <div class="form-group-large">
+                    <label for="titulo">Título do Texto</label>
+                    <input type="text" id="titulo" name="titulo" placeholder="Ex: Lembranças de Aracati" required>
+                </div>
+                
+                <div class="form-group-large">
+                    <label for="conteudo">Sua História</label>
+                    <textarea id="conteudo" name="conteudo" rows="15" placeholder="Comece a escrever aqui..." required></textarea>
+                </div>
+                
+                <button type="submit" class="btn-publicar">PUBLICAR TEXTO NO SITE</button>
+            </form>
+
+            <div id="mensagem-sucesso" style="display: none; color: green; font-weight: bold; margin-top: 20px; font-size: 1.2rem; text-align: center;">
+                Texto publicado com sucesso!
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
