@@ -76,10 +76,22 @@ if (isset($_GET['sair'])) {
                     </div>
                 <?php endif; ?>
 
-                <form action="publicar.php" method="POST" class="form-escrita">
+                <?php if (isset($_GET['erro'])): ?>
+                    <div style="color: #d9534f; background-color: #fdf7f7; padding: 20px; border-radius: 8px; border: 1px solid #d9534f; margin-bottom: 30px; text-align: center; font-weight: bold;">
+                        <?php echo htmlspecialchars($_GET['erro'] === 'campos' ? 'Preencha o título e o conteúdo do texto.' : $_GET['erro'], ENT_QUOTES, 'UTF-8'); ?>
+                    </div>
+                <?php endif; ?>
+
+                <form action="publicar.php" method="POST" enctype="multipart/form-data" class="form-escrita">
                     <div class="form-group-large">
                         <label for="titulo">Título do Texto</label>
                         <input type="text" id="titulo" name="titulo" placeholder="Ex: Lembranças de Aracati" required>
+                    </div>
+
+                    <div class="form-group-large">
+                        <label for="imagem">Imagem do Texto (opcional)</label>
+                        <input type="file" id="imagem" name="imagem" accept="image/jpeg,image/png,image/webp,image/gif" class="input-arquivo">
+                        <small class="form-hint">Esta imagem aparecerá no topo da página de leitura. Formatos: JPG, PNG, WEBP ou GIF (máx. 5 MB).</small>
                     </div>
                     
                     <div class="form-group-large">

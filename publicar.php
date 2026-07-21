@@ -1,36 +1,49 @@
 <?php
 
 session_start();
+
 if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
     die("Acesso negado. Você precisa estar logado para publicar.");
 }
 
-$host = "localhost"; 
-$usuario = "u906671717_izv6m";
-$senha = ".3l.e>09ZCvf"; 
-$banco = "u906671717_EP325";
+require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/includes/funcoes.php';
 
-// Cria a conexão
-$conexao = new mysqli($host, $usuario, $senha, $banco);
-
-
-if ($conexao->connect_error) {
-    die("Falha na conexão: " . $conexao->connect_error);
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    header("Location: painel-autor.php");
+    exit();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $titulo = $conexao->real_escape_string($_POST['titulo']);
-    $conteudo = $conexao->real_escape_string($_POST['conteudo']);
+$conexao = obter_conexao();
 
-    $sql = "INSERT INTO textos_blog (titulo, conteudo) VALUES ('$titulo', '$conteudo')";
+$titulo = trim($_POST['titulo'] ?? '');
+$conteudo = trim($_POST['conteudo'] ?? '');
 
-    if ($conexao->query($sql) === TRUE) {
-        header("Location: painel-autor.html?sucesso=1");
-        exit();
-    } else {
-        echo "Erro: " . $sql . "<br>" . $conexao->error;
-    }
+if ($titulo === '' || $conteudo === '') {
+    header("Location: painel-autor.php?erro=campos");
+    exit();
 }
 
+try {
+    $imagem = normalizar_imagem(processar_upload_imagem($_FILES['imagem'] ?? []));
+} catch (RuntimeException $e) {
+    header("Location: painel-autor.php?erro=" . urlencode($e->getMessage()));
+    exit();
+}
+
+$stmt = $conexao->prepare("INSERT INTO textos_blog (titulo, conteudo, imagem) VALUES (?, ?, ?)");
+$stmt->bind_param("sss", $titulo, $conteudo, $imagem);
+
+if ($stmt->execute()) {
+    $stmt->close();
+    $conexao->close();
+    header("Location: painel-autor.php?sucesso=1");
+    exit();
+}
+
+$erro = $stmt->error;
+$stmt->close();
 $conexao->close();
-?>
+
+header("Location: painel-autor.php?erro=" . urlencode("Erro ao publicar: " . $erro));
+exit();
