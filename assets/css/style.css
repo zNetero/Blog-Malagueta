@@ -475,6 +475,22 @@ footer {
     box-shadow: 0 8px 20px rgba(59, 94, 59, 0.4);
 }
 
+/* Delete button style */
+.btn-delete {
+    background-color: #b92b2b;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.btn-delete:hover {
+    background-color: #8f1f1f;
+}
+
 
 @media (max-width: 600px) {
     .painel-container {

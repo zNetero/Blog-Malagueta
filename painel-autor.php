@@ -101,6 +101,78 @@ if (isset($_GET['sair'])) {
                     
                     <button type="submit" class="btn-publicar">PUBLICAR TEXTO NO SITE</button>
                 </form>
+
+                <?php
+                    // Lista de textos publicados pelo autor
+                    require_once __DIR__ . '/config/db.php';
+                    require_once __DIR__ . '/includes/funcoes.php';
+
+                    $conexao = obter_conexao();
+
+                    // Detecta coluna de data se existir (created_at ou data)
+                    $date_col = null;
+                    $check = $conexao->query("SHOW COLUMNS FROM textos_blog LIKE 'created_at'");
+                    if ($check && $check->num_rows) {
+                        $date_col = 'created_at';
+                    } else {
+                        $check2 = $conexao->query("SHOW COLUMNS FROM textos_blog LIKE 'data'");
+                        if ($check2 && $check2->num_rows) {
+                            $date_col = 'data';
+                        }
+                    }
+
+                    if ($date_col) {
+                        $sql = "SELECT id, titulo, " . $date_col . " AS data FROM textos_blog ORDER BY id DESC";
+                        $stmt = $conexao->prepare($sql);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                    } else {
+                        $stmt = $conexao->prepare("SELECT id, titulo FROM textos_blog ORDER BY id DESC");
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                    }
+                ?>
+
+                <hr style="margin:30px 0;border:none;border-top:1px solid rgba(0,0,0,0.06);">
+                <h2>Meus Textos Publicados</h2>
+
+                <?php if ($result && $result->num_rows > 0): ?>
+                    <table style="width:100%;border-collapse:collapse;margin-top:12px;">
+                        <thead>
+                            <tr style="text-align:left;border-bottom:1px solid #eee;">
+                                <th style="padding:10px 8px;width:60px;">ID</th>
+                                <th style="padding:10px 8px;">Título</th>
+                                <th style="padding:10px 8px;width:180px;">Data</th>
+                                <th style="padding:10px 8px;width:120px;text-align:right;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = $result->fetch_assoc()): ?>
+                                <tr style="border-bottom:1px solid #fafafa;">
+                                    <td style="padding:10px 8px;vertical-align:middle;"><?php echo (int) $row['id']; ?></td>
+                                    <td style="padding:10px 8px;vertical-align:middle;"><?php echo esc($row['titulo']); ?></td>
+                                    <td style="padding:10px 8px;vertical-align:middle;"><?php echo isset($row['data']) ? esc($row['data']) : '—'; ?></td>
+                                    <td style="padding:10px 8px;vertical-align:middle;text-align:right;">
+                                        <form method="post" action="deletar.php" onsubmit="return confirm('Confirma exclusão deste texto?');" style="display:inline-block;margin:0;">
+                                            <input type="hidden" name="id" value="<?php echo (int) $row['id']; ?>">
+                                            <button type="submit" class="btn-delete">Apagar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <p style="color:#666;margin-top:12px;">Nenhum texto publicado ainda.</p>
+                <?php endif; ?>
+
+                <?php
+                    if (isset($stmt) && $stmt) {
+                        $stmt->close();
+                    }
+                    $conexao->close();
+                ?>
+
             </div>
         <?php endif; ?>
 
