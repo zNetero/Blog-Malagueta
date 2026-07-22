@@ -658,33 +658,52 @@ footer {
 
 .museum-gallery {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
     gap: 28px;
 }
 
+.museum-gallery-row {
+    display: grid;
+    gap: 24px;
+}
+
+.museum-gallery-row-top {
+    grid-template-columns: repeat(3, minmax(260px, 1fr));
+}
+
+.museum-gallery-row-bottom {
+    grid-template-columns: repeat(2, minmax(360px, 1fr));
+}
+
 .museum-card {
-    grid-column: span 2;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
     display: flex;
     flex-direction: column;
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.museum-card:nth-child(4) {
-    grid-column: 2 / span 2;
+.museum-item {
+    height: 620px;
 }
 
-.museum-card:nth-child(5) {
-    grid-column: 4 / span 2;
+.museum-item-wide {
+    height: 420px;
 }
 
 .museum-card-image {
-    aspect-ratio: 4 / 3;
+    width: 100%;
     overflow: hidden;
-    background-color: #eee;
+    background-color: #f7f2ec;
+}
+
+.museum-item .museum-card-image {
+    height: 520px;
+}
+
+.museum-item-wide .museum-card-image {
+    height: 340px;
 }
 
 .museum-card-image img {
@@ -726,14 +745,9 @@ footer {
 }
 
 @media (max-width: 900px) {
-    .museum-gallery {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .museum-card,
-    .museum-card:nth-child(4),
-    .museum-card:nth-child(5) {
-        grid-column: auto;
+    .museum-gallery-row-top,
+    .museum-gallery-row-bottom {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -748,11 +762,6 @@ footer {
 
     .museum-header {
         margin-bottom: 40px;
-    }
-
-    .museum-gallery {
-        grid-template-columns: 1fr;
-        gap: 24px;
     }
 }
 
