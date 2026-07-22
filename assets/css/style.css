@@ -338,8 +338,8 @@ footer {
     height: auto;
     border-radius: 8px;
     box-shadow: 5px 5px 20px rgba(0,0,0,0.1);
-    position: sticky; 
-    top: 40px;
+    position: relative;
+    top: auto;
 }
 
 .author-bio {
@@ -895,6 +895,8 @@ footer {
 }
 
 .texto-single-image {
+    display: block;
+    width: 100%;
     margin: 0 0 36px;
     border-radius: 6px;
     overflow: hidden;
